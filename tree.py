@@ -69,9 +69,9 @@ if __name__ == "__main__":
     X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=0.2, random_state=42)
 
     params = {
-        'n_estimators': [10, 30],
-        'max_depth': [5, 10],
-        'min_samples_split': [2, 4],
+        'n_estimators': [10, 30, 50, 70, 100],
+        'max_depth': [5, 10, 15, 20, 25],
+        'min_samples_split': [2, 4, 6, 8],
         'criterion': ['gini', 'entropy', 'log_loss']
     }
 
@@ -117,8 +117,13 @@ if __name__ == "__main__":
         results = [item for sublist in all_results for item in sublist]
         
         end = time.time()
-        print(f"Time taken: {end - start}")
-
+        execution_time = end - start
+        print(f"Time taken: {execution_time:.2f} seconds")
+        baseline = 1229.5422
+        speedup = baseline / execution_time
+        efficiency = speedup / size
+        print(f"Speedup: {speedup:.2f}")
+        print(f"Efficiency: {efficiency:.2f}")
         best_params = max(results, key=lambda x: x['accuracy'])
         print(f"Best parameters: {best_params}")
 
